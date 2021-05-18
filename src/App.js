@@ -3,8 +3,9 @@ import TypeMe, { Delete } from 'react-typeme';
 import React, { useState } from "react";
 import {v4 as uuidv4} from "uuid"
 import MovieList from "./component/MovieList";
-import { Navbar, Form, FormControl, Nav } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import Add from "./component/Add";
+import Filter from "./Filter";
 
 
 function App() {
@@ -40,6 +41,22 @@ function App() {
     rating : 4 ,
     year : "2020"
   },
+  {
+    id : uuidv4(),
+    title : "Parasite",
+    description : "The film, starring Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong, Choi Woo-shik, Park So-dam, Jang Hye-jin, and Lee Jung-eun, follows a poor family who scheme to become employed by a wealthy family and infiltrate their household by posing as unrelated, highly qualified individuals.",
+    posterUrl : "https://th.bing.com/th/id/Rf86d3678f3e71921104d507c5c8830e6?rik=h41UAdnRL9NpfA&pid=ImgRaw",
+    rating : 5 ,
+    year : "2019"
+  },
+  {
+    id : uuidv4(),
+    title : "Mulan",
+    description : "Mulan is a girl, the only child of her honored family. When the Huns invade China, one man from every family is called to arms. Mulan's father, who has an old wound and cannot walk properly, decides to fight for his country and the honor of his family though it is clear that he will not survive an enemy encounter.",
+    posterUrl : "https://th.bing.com/th/id/OIP.mP5GTM14qZhQzmH7xq8WcwHaK-?pid=ImgDet&rs=1",
+    rating : 4 ,
+    year : "2020"
+  },
 ];
 
 
@@ -48,6 +65,8 @@ function App() {
   const [search, setSearch] = useState("");
   const [rate, setRating] = useState(0);
 
+  const handleTitleFilterChange = (value)=>setSearch(value)
+  const handleRateFilterChange = (value)=>setRating(value)
   const movieAdd = (id,title,posterUrl,description,rating,year) =>
     setMovieList([...movieList, {id, title,posterUrl,description ,rating,year }]);
   
@@ -65,18 +84,15 @@ function App() {
       <Nav.Link href="#latestmovies">Latest Movies</Nav.Link>
       <Nav.Link href="#recomondations">Recomondations</Nav.Link>
     </Nav>
-    <div className="search">
-    <Form inline>
-      <FormControl type="text" placeholder="Search by Name" className="mr-sm-2"  
-      onChange={(search) => setSearch(search.target.value)}/>   
-      <br/><FormControl type="number" placeholder="Search by Rate" className="mr-sm-2"
-      onChange={(rate) => setRating(rate.target.value)}></FormControl> </Form></div>
+    <div>
+      <Filter handleTitleFilterChange={handleTitleFilterChange} handleRateFilterChange={handleRateFilterChange}></Filter>
+    </div>
 
   </Navbar>
   </div>
 <div className="add">
-      <Add movieAdd={movieAdd} /></div>
-      <MovieList movieList={movieList} search={search} rate={rate}/>
+      <span className="adding">You Have Something to Add?</span> <Add movieAdd={movieAdd} /></div>
+      <MovieList movieList={movieList.filter(movie=>movie.title.toUpperCase().trim().includes(search.trim().toUpperCase()) && movie.rating>=rate)} />
     </div>
   );
 }
