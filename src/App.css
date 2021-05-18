@@ -1,0 +1,29 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&display=swap');
+
+
+.App {
+  background-color: rgb(51, 51, 51);
+  background-image: url('https://th.bing.com/th/id/R1ad9761b7ae745b111698664c53d5f3d?rik=886EgU0ZSS6dBA&pid=ImgRaw');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+
+.search {
+  float: right;
+  margin-left: 500px;
+}
+.nav {
+  margin-left: 50px;
+  font-size: larger;
+  color: blanchedalmond;
+  font-family:cursive;
+}
+.add {
+ float: right;
+}
+.typewriter {
+  font-size: 20px;
+  font-family: Faster One;
+}
